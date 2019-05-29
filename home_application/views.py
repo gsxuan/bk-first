@@ -16,7 +16,7 @@ def hello(request):
     """
     return render(request, 'home_application/hello.html')
 
-def hello(request):
+def hello2(request):
     """
     hello2
     """
