@@ -36,7 +36,7 @@
     <!--[if lt IE 9]><script src="https://magicbox.bk.tencent.com/static_api/v3/assets/js/html5shiv.min.js"></script><script src="https://magicbox.bk.tencent.com/static_api/v3/assets/js/respond.min.js"></script><![endif]-->
     <script>
         function mySubmit() {
-            let input = $("#page_input");
+            let input = $("#input");
             if (input.val() === "") {
                 input.addClass("is-danger");
                 return;
@@ -48,10 +48,15 @@
                 },
                 type: 'POST',
                 success: function (res) {
-                    $('#page_title').text(res.data);
+                    $('#output').text(res.data);
                     input.val("");
                 }
             });
+        }
+    </script>
+    <script>
+        function mSubmit() {
+            document.getElementById("output").value = "Congratulation！";
         }
     </script>
     <script>
@@ -110,6 +115,10 @@
                                 <button type="button" class="king-btn mr10  king-success"  onclick="mySubmit();return false">提交</button>
                                 <button type="button" class="king-btn king-default " onclick="copyHello()">输入</button>
                             </div>
+                            <div class="col-sm-11 col-sm-offset-3">
+                                <input id="output"> </div>
+                        </div>
+                            
                         </div>
                     </form>
                 </div>
