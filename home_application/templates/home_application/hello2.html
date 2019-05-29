@@ -47,6 +47,9 @@
                     'input': input.val(),
                 },
                 type: 'POST',
+                xhrFields: {
+                    withCredentials: false
+                },
                 success: function (res) {
                     $('#output').text(res.data);
                     input.val("");
