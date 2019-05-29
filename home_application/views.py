@@ -21,7 +21,7 @@ def render_json(res_dict):
     return HttpResponse(json.dumps(res_dict), content_type='application/json')
 
 # 输入值提交请求
-def say_hello(request):
+def sayhello(request):
     data = request.POST.get('input', None)
     data = 'Congratulations!' if data == 'Hello Blueking' else 'Try input Hello Blueking'
     res = {'data': data}
