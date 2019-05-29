@@ -36,23 +36,28 @@
     <!--[if lt IE 9]><script src="https://magicbox.bk.tencent.com/static_api/v3/assets/js/html5shiv.min.js"></script><script src="https://magicbox.bk.tencent.com/static_api/v3/assets/js/respond.min.js"></script><![endif]-->
     <script>
         function mySubmit() {
-                let input = $("#page_input");
-                if (input.val() === "") {
-                    input.addClass("is-danger");
-                    return;
-                }
-                $.ajax({
-                    url: '{{ SITE_URL }}sayhello/',
-                    data: {
-                        'input': input.val(),
-                    },
-                    type: 'POST',
-                    success: function (res) {
-                        $('#page_title').text(res.data);
-                        input.val("");
-                    }
-                });
+            let input = $("#page_input");
+            if (input.val() === "") {
+                input.addClass("is-danger");
+                return;
             }
+            $.ajax({
+                url: 'http://paas.think.com:8000/sayhello/',
+                data: {
+                    'input': input.val(),
+                },
+                type: 'POST',
+                success: function (res) {
+                    $('#page_title').text(res.data);
+                    input.val("");
+                }
+            });
+        }
+    </script>
+    <script>
+        function copyHello() {
+            document.getElementById("input").value = "Hello Blueking";
+        }
     </script>
 </head>
 
@@ -68,14 +73,14 @@
                                     class="logo"> </a>
                         </div>
                         <ul class="nav navbar-nav pull-left m0">
-                            <li class="active"><a href="home">作业一</a></li>
-                            <li><a href="hello2">作业二</a></li>
-                            <li><a href="hello2">作业三</a></li>
-                            <li><a href="hello2">作业四</a></li>
-                            <li><a href="hello2">作业五</a></li>
-                            <li><a href="hello6">作业六</a></li>
-                            <li><a href="https://bk.tencent.com/s-mart/community/question/440">关于我们</a></li>
-                            <li><a href="https://bk.tencent.com/s-mart/community/question/448">联系我们</a></li>
+                            <li><a href="/">作业一</a></li>
+                            <li class="active"><a href="#top">作业二</a></li>
+                            <li><a href="/hello3">作业三</a></li>
+                            <li><a href="/hello4">作业四</a></li>
+                            <li><a href="/hello5">作业五</a></li>
+                            <li><a href="/hello6">作业六</a></li>
+                            <li><a href="https://bk.tencent.com/s-mart/community/question/440">活动页面</a></li>
+                            <li><a href="https://bk.tencent.com/s-mart/community/question/448">活动问答</a></li>
                         </ul>
                         <div class="navbar-header pull-right">
                             <ul class="nav">
@@ -98,12 +103,12 @@
                         <div class="form-group clearfix ">
                             <label class="col-sm-3 control-label bk-lh30 pt0">输入：</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control bk-valign-top" id="" placeholder="Input Hello Blueking"> </div>
+                                <input type="text" class="form-control bk-valign-top" id="input" placeholder="Input Hello Blueking"> </div>
                         </div>
                         <div class="form-group clearfix">
                             <div class="col-sm-9 col-sm-offset-3">
-                                <button type="button" class="king-btn mr10  king-success" onclick="mySubmit();return false">提交</button>
-                                <button type="button" class="king-btn king-default ">取消</button>
+                                <button type="button" class="king-btn mr10  king-success"  onclick="mySubmit();return false">提交</button>
+                                <button type="button" class="king-btn king-default " onclick="copyHello()">输入</button>
                             </div>
                         </div>
                     </form>
