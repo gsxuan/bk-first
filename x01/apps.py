@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class TailfConfig(AppConfig):
-    name = 'tailf'
+class X01Config(AppConfig):
+    name = 'x01'
