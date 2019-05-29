@@ -21,4 +21,5 @@ urlpatterns = (
     url(r'^$', views.home),
     url(r'^hello/$', views.hello),
     url(r'^hello2/$', views.hello2),
+    url(r'^sayhello/$', views.say_hello),
 )
