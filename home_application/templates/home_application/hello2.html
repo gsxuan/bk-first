@@ -46,7 +46,7 @@
                 data: {
                     'input': input.val(),
                 },
-                type: 'GET',
+                type: 'POST',
                 success: function (res) {
                     $('#page_title').text(res.data);
                     input.val("");
