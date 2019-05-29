@@ -10,12 +10,6 @@ def home(request):
     """
     return render(request, 'home_application/home.html')
 
-def hello(request):
-    """
-    hello
-    """
-    return render(request, 'home_application/hello.html')
-
 def hello2(request):
     """
     hello2
