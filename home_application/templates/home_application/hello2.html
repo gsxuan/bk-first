@@ -38,7 +38,7 @@
         function mySubmit() {
             let input = $("#input");
             if (input.val() === "") {
-                input.addClass("is-danger");
+                document.getElementById("output").value = "Input Hello Blueking";
                 return;
             }
             $.ajax({

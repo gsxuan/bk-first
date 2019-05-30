@@ -22,7 +22,7 @@ $.ajaxSetup({
         }
         if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
             //var csrftoken = getCookie('openpaas_test_v2_csrftoken');
-            var csrftoken = getCookie("{APPID}_csrftoken");
+            var csrftoken = getCookie("x01_csrftoken");
             xhr.setRequestHeader("X-CSRFToken", csrftoken);
         }
     }
