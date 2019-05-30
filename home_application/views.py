@@ -19,19 +19,16 @@ def hello2(request):
     """
     return render(request, 'home_application/hello2.html')
     
-# 自己提取的一个工具函数
-def render_json(res_dict):
-    return HttpResponse(json.dumps(res_dict), content_type='application/json')
+# json
+def json_ouput(res):
+    return HttpResponse(json.dumps(res), content_type='application/json')
 
-# 输入值提交请求
+# submit
 def say_hello(request):
-    data = request.POST.get('input', None)
-    data = 'Congratulations!' if data == 'Hello Blueking' else 'Try input Hello Blueking'
+    data = request.POST.get('input', 'null')
+    # if data == 'Hello Blueking':
+    #     data = 'Congratulations!' 
+    # else:
+    #     data = 'input error'
     res = {'data': data}
-    pass
-    return render_json(res)
-
-
-@csrf_exempt
-def ajaxview(request):
-    pass
+    return json_ouput(res)
