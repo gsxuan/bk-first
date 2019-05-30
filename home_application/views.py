@@ -26,9 +26,9 @@ def json_ouput(res):
 # submit
 def say_hello(request):
     data = request.POST.get('input', 'null')
-    # if data == 'Hello Blueking':
-    #     data = 'Congratulations!' 
-    # else:
-    #     data = 'input error'
+    if data == 'Hello Blueking':
+        data = 'Congratulations!' 
+    else:
+        data = 'input error'
     res = {'data': data}
     return json_ouput(res)
