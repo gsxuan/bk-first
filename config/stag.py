@@ -13,7 +13,7 @@ RUN_MODE = 'STAGING'
 # import logging
 # logging.getLogger('root').setLevel('INFO')
 
-
+DEBUG = True
 # 预发布环境数据库可以在这里配置
 DATABASES.update(
     {

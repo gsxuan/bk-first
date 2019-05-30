@@ -1,0 +1,296 @@
+<!--HTML-->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>作业2</title>
+    <!-- 若您需要使用Kendo UI Professional，请联系版权人获得合法的授权或许可。 -->
+    <!-- Bootstrap css -->
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/bootstrap-3.3.4/css/bootstrap.min.css"
+        rel="stylesheet">
+    <!-- kendo ui css -->
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/kendoui-2015.2.624/styles/kendo.common.min.css"
+        rel="stylesheet">
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/kendoui-2015.2.624/styles/kendo.default.min.css"
+        rel="stylesheet">
+    <!-- font-awesome -->
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/fontawesome/css/font-awesome.css" rel="stylesheet">
+    <!--蓝鲸提供的公用样式库 -->
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/bk/css/bk.css" rel="stylesheet">
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/bk/css/bk_pack.css" rel="stylesheet">
+    <!-- 如果要使用Bootstrap的js插件，必须先调入jQuery -->
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/js/jquery-1.10.2.min.js"></script>
+    <!-- 包括所有bootstrap的js插件或者可以根据需要使用的js插件调用　-->
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/echarts-2.0/echarts-all.js"></script>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <!-- 包括所有kendoui的js插件或者可以根据需要使用的js插件调用　-->
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/kendoui-2015.2.624/js/kendo.all.min.js"></script>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/echarts-2.0/echarts-all.js"></script>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/bk/js/bk.js"></script>
+    <!-- 数据埋点统计 -->
+    <script src="http://magicbox.bk.tencent.com/static_api/analysis.js"></script>
+    <!-- crsf -->
+    <script src="{{ SITE_URL }}static/js/csrftoken.js"></script>
+    <!-- 以下两个插件用于在IE8以及以下版本浏览器支持HTML5元素和媒体查询，如果不需要用可以移除 -->
+    <!--[if lt IE 9]><script src="https://magicbox.bk.tencent.com/static_api/v3/assets/js/html5shiv.min.js"></script><script src="https://magicbox.bk.tencent.com/static_api/v3/assets/js/respond.min.js"></script><![endif]-->
+    <script>
+        function mySubmit() {
+            let input = $("#input");
+            if (input.val() == "") {
+                document.getElementById("output").value = "Input Hello Blueking";
+                return;
+            }
+            $.ajax({
+                url: '{{ SITE_URL }}sayhello/',
+                data: {
+                    'input': input.val(),
+                },
+                type: 'POST',
+                success: function (res) {
+                    document.getElementById("output").value = res.data;
+                }
+            });
+        }
+    </script>
+    <script>
+        function mSubmit() {
+            document.getElementById("output").value = "Congratulation！";
+        }
+    </script>
+    <script>
+        function copyHello() {
+            document.getElementById("input").value = "Hello Blueking";
+        }
+    </script>
+</head>
+
+<body class="bg-white" data-bg-color="bg-white">
+    <div class="king-page-box">
+        <div class="king-container clearfix">
+            <nav class="">
+                <div style="overflow:hidden; z-index: inherit;" class="navbar king-horizontal-nav1  f14">
+                    <div class="navbar-container">
+                        <div class="navbar-header pull-left">
+                            <a class="navbar-brand" href="javascript:;">
+                                <img src="https://magicbox.bk.tencent.com/static_api/v3/bk/images/logo.png"
+                                    class="logo"> </a>
+                        </div>
+                        <ul class="nav navbar-nav pull-left m0">
+                            <li><a href="{{ SITE_URL }}">作业一</a></li>
+                            <li><a href="{{ SITE_URL }}hello2">作业二</a></li>
+                            <li class="active"><a href="#top">作业三</a></li>
+                            <li><a href="{{ SITE_URL }}hello4">作业四</a></li>
+                            <li><a href="{{ SITE_URL }}hello5">作业五</a></li>
+                            <li><a href="{{ SITE_URL }}hello6">作业六</a></li>
+                            <li><a href="https://bk.tencent.com/s-mart/community/question/440">活动页面</a></li>
+                            <li><a href="https://bk.tencent.com/s-mart/community/question/448">活动问答</a></li>
+                        </ul>
+                        <div class="navbar-header pull-right">
+                            <ul class="nav">
+                                <li class="user-info">
+                                    <a href="javascript:;">
+                                        <img class="img-rounded"
+                                            src="https://magicbox.bk.tencent.com/static_api/v3/components/horizontal_nav1/images/avatar.png">
+                                        <span>844716598</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+<div class="panel panel-default mb0">
+    <div class="panel-heading"> 信息录入与修改 </div>
+    <div class="panel-body">
+        <form class="form-horizontal">
+            <div class="form-group clearfix ">
+                <label class="col-sm-3 control-label bk-lh30 pt0">主机名：</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control bk-valign-top" id="host_name" placeholder="hostname"> </div>
+            </div>
+            <div class="form-group clearfix ">
+                <label class="col-sm-3 control-label bk-lh30 pt0">主机ip：</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control bk-valign-top" id="host_ip" placeholder="192.168.0.1"> </div>
+            </div>
+            <div class="form-group clearfix ">
+                <label class="col-sm-3 control-label bk-lh30 pt0">磁盘分区：</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control bk-valign-top" id="host_df" placeholder="/data"> </div>
+            </div>
+            <div class="form-group clearfix ">
+                <label class="control-label col-sm-3 bk-lh30 pt0">系统平台：</label>
+                <div class="col-sm-9">
+                    <div class="radio pt0">
+                        <label class="mr10">
+                            <input type="radio" name="optionsRadios" id="osw" class="bk-top5" value="Windows">
+                            <span class="bk-lh30">Windows</span>
+                        </label>
+                        <label class="mr10">
+                            <input type="radio" name="optionsRadios" id="osl" class="bk-top5" value="Linux">
+                            <span class="bk-lh30">Linux</span>
+                        </label>
+                        <label class="mr10">
+                            <input type="radio" name="optionsRadios" id="osx" class="bk-top5" value="Mac">
+                            <span class="bk-lh30">Mac</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <form class="form-horizontal">
+                <div class="form-group has-feedback clearfix ">
+                    <label class="control-label col-sm-3 pt0" for="introduction">备注：</label>
+                    <div class="col-sm-9">
+                        <textarea class="form-control" rows="3" id="host_note" placeholder="使用用途"></textarea>
+                    </div>
+                </div>
+            </form>
+            <div class="form-group clearfix">
+                <div class="col-sm-9 col-sm-offset-3">
+                    <button type="button" class="king-btn mr10  king-success" onclick="update_table()">提交</button>
+                    <button type="button" class="king-btn king-default " onclick="clearAll()" >清空</button>
+                </div>
+            </div>
+        </form>
+        <div class="panel panel-default mb0">
+            <div class="panel-heading"> 主机磁盘信息 </div>
+            <div class="panel-body">
+                <table class="table mb0 pr15 ranger-box2  ">
+                    <thead>
+                        <tr>
+                            <th style="width: 70px;">id</th>
+                            <th style="width: 15%;">主机名</th>
+                            <th style="width: 15%;">主机ip</th>
+                            <th style="width: 15%;">磁盘分区</th>
+                            <th style="width: 15%;">系统平台</th>
+                            <th style="width: 15%;">创建时间</th>
+                            <th>修改/删除</th>
+                            <th style="width: 10%;">备注</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="width: 70px;">1</td>
+                            <td style="width: 15%;">host1</td>
+                            <td style="width: 15%;">192.168.0.1</td>
+                            <td style="width: 15%;">/data</td>
+                            <td style="width: 15%;">Mac</td>
+                            <td style="width: 15%;">30/05/2019</td>
+                            <td>
+                                <button class="btn btn-xs btn-warning"> <i class="glyphicon glyphicon-edit"></i>
+                                </button>
+                                <button class="btn btn-xs btn-danger"> <i class="glyphicon glyphicon-remove"></i>
+                                </button>
+                            </td>
+                            <td style="width: 10%;">Mac</td>
+                    </tbody>
+                </table>
+                <template id="host_list">
+                    <tr>
+                        <th style="width: 70px;">#index#</th>
+                        <th style="width: 15%;">#host_name#</th>
+                        <th style="width: 15%;">#host_ip#</th>
+                        <th style="width: 15%;">#host_df#</th>
+                        <th style="width: 15%;">#host_os#</th>
+                        <th style="width: 15%;">#host_createtime#</th>
+                        <th style="width: 15%;">#host_edit#</th>
+                        <th style="width: 15%;">#host_note#</th>
+                    </tr>
+                </template>
+                <template id="header_host_list'">
+                    <tr>
+                        <th style="width: 70px;">#index#</th>
+                        <th style="width: 15%;">#host_name#</th>
+                        <th style="width: 15%;">#host_ip#</th>
+                        <th style="width: 15%;">#host_df#</th>
+                        <th style="width: 15%;">#host_os#</th>
+                        <th style="width: 15%;">#host_createtime#</th>
+                        <th style="width: 15%;">#host_edit#</th>
+                        <th style="width: 15%;">#host_note#</th>
+                        <td>
+                            <button class="btn btn-xs btn-warning"> <i class="glyphicon glyphicon-edit"></i> </button>
+                            <button class="btn btn-xs btn-danger"> <i class="glyphicon glyphicon-remove"></i> </button>
+                        </td>
+                    </tr>
+                </template>
+                <!-- 设置面板End -->
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<script>
+    function clearAll(params) {
+        document.getElementById("host_name").value = 'host2';
+        document.getElementById("host_ip").value = '192.168.0.2';
+        document.getElementById("host_df").value = '/dev/sr0';
+        document.getElementById("host_note").value = 'Mac';
+    }
+</script>
+<script>
+   var postHostdata = function () {
+        $.ajax({
+            url: '{{ SITE_URL }}hostdata/',
+            type: 'post',
+            data: {
+                "hostname": $('#host_name').val(),
+                "hostname": $('#host_ip').val(),
+                "hostname": $('#host_df').val(),
+                "hostname": $('#host_note').val(),
+            }，
+            success: function (res) {
+                if (res.code === 0){
+                    update_table();
+                    $('#error').remove();
+                } else {
+                    ${'#host_submit'}.parent().append(res.msg);
+                }
+                
+            }
+        })
+    }
+</script>
+
+<script>
+    $(function () {
+        function renderTpl(str, cfg) {
+            var re = /(#(.+?)#)/g;
+
+            return str.replace(re, function () {
+                var val = cfg[arguments[2]] + '';
+                if (typeof val == 'undefined') {
+                    val = '';
+                }
+                return val;
+            });
+        }
+
+        // 异步请求后台数据
+        $.ajax({
+            url: '{{ SITE_URL }}hostdata/',
+            type: 'GET',
+            success: function (res) {
+                var _html = ' ';
+                var list = res.items;
+                var tpl = $('#host_list').html();
+                var headerTpl = $('#header_host_list').html();
+                for (var i = 0, len = list.length; i < len; i++) {
+                    var item = list[i];
+                    _html += renderTpl(tpl, item)
+                }
+                $('.ranger-box2 tbody').html(_html);
+                $('.ranger-box2 thead').html(renderTpl(headerTpl, res.catalogues));
+            }
+        });
+    });
+</script>
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>
