@@ -14,18 +14,19 @@ Including another URLconf
     1. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url
-
-from home_application import views
+from get_capacity import views
 
 urlpatterns = (
     url(r'^$', views.home),
-    url(r'^hello2/$', views.hello2),
-    url(r'^sayhello/$', views.say_hello),
-    url(r'^hello3/$', views.hello3),
-    url(r'^hostdata/$', views.host_data),
-    url(r'^hello4/$', views.hello4),
-    url(r'^get_dfusage/$', views.api_disk_usage),
-    url(r'^get_hosts/$', views.get_hosts),
-    url(r'^hello5/$', views.hello5),
-    url(r'^hello6/$', views.hello4),
+    #下拉数据获取
+    url(r'^get_app/$', views.get_app),
+    # url(r'^get_ip_by_appid/$', views.get_ip_by_appid),
+    # url(r'^get_task_list/$', views.get_task_list),
+
+    # #执行作业，获取容量
+    # url(r'^execcute_task/$', views.execcute_task),
+    # url(r'^get_capacity/$', views.get_capacity),
+
+    # #获取数据视图
+    # url(r'^chartdata/$', views.get_capacity_chartdata),
 )

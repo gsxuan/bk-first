@@ -6,7 +6,7 @@ class HostModelManager(models.Manager):
         host_list = super().get_queryset()
         res_dict = [{
             'host_id': item.id,
-            'host_name': item.name,
+            'host_name': item.host,
             'host_ip': item.ip,
             'host_df': item.df,
             'host_os': item.os,
@@ -21,7 +21,7 @@ class Hostlist(models.Model):
         ('Linux', 'Linux'),
         ('Mac', 'Mac'),
     )
-    name = models.CharField(max_length=30, verbose_name='主机名')
+    host = models.CharField(max_length=30, verbose_name='主机名')
     ip = models.GenericIPAddressField(verbose_name='ip')
     df = models.CharField(max_length=100, verbose_name='磁盘分区')
     os = models.CharField(choices=SYSTEM_CHOICES ,max_length=30, verbose_name='系统平台')
@@ -29,3 +29,9 @@ class Hostlist(models.Model):
     create_time = models.DateTimeField(auto_now=True, verbose_name='创建时间')
     
     objects = HostModelManager()
+
+
+class DiskUsage(models.Model):
+    value = models.IntegerField('磁盘使用率')
+    add_time = models.DateTimeField('录入时间', auto_now=True)
+    #host = models.ForeignKey(host, on_delete=models.CASCADE, related_name="DiskUsage")

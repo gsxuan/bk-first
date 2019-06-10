@@ -57,6 +57,7 @@
                 },
                 success: function (res) {
                     $('#host_submit') .parent().append(res.msg);
+                    $('.ranger-box2 tbody').html(_html);
                 }
             });
         }

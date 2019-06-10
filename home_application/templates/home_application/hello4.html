@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>作业1</title>
+    <title>作业4</title>
     <!-- 若您需要使用Kendo UI Professional，请联系版权人获得合法的授权或许可。 -->
     <!-- Bootstrap css -->
     <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/bootstrap-3.3.4/css/bootstrap.min.css"
@@ -34,8 +34,6 @@
     <script src="http://magicbox.bk.tencent.com/static_api/analysis.js"></script>
     <!-- crsf -->
     <script src="{{ SITE_URL }}static/js/csrftoken.js"></script>
-    <!-- 以下两个插件用于在IE8以及以下版本浏览器支持HTML5元素和媒体查询，如果不需要用可以移除 -->
-    <!--[if lt IE 9]><script src="https://magicbox.bk.tencent.com/static_api/v3/assets/js/html5shiv.min.js"></script><script src="https://magicbox.bk.tencent.com/static_api/v3/assets/js/respond.min.js"></script><![endif]-->
 </head>
 
 <body class="bg-white" data-bg-color="bg-white">
@@ -50,10 +48,10 @@
                                     class="logo"> </a>
                         </div>
                         <ul class="nav navbar-nav pull-left m0">
-                            <li class="active"><a href="#top">作业一</a></li>
+                            <li><a href="{{ SITE_URL }}">作业一</a></li>
                             <li><a href="{{ SITE_URL }}hello2">作业二</a></li>
                             <li><a href="{{ SITE_URL }}hello3">作业三</a></li>
-                            <li><a href="{{ SITE_URL }}hello4">作业四</a></li>
+                            <li class="active"><a href="#top">作业四</a></li>
                             <li><a href="{{ SITE_URL }}hello5">作业五</a></li>
                             <li><a href="{{ SITE_URL }}hello6">作业六</a></li>
                             <li><a href="https://bk.tencent.com/s-mart/community/question/440">活动页面</a></li>
@@ -73,12 +71,85 @@
                     </div>
                 </div>
             </nav>
-            <div class="panel panel-default mb0">
-                <div class="panel-heading"> 作业一 </div>
-                <div class="panel-body">
-                    <p>Hello World!</p>
+            <form class="form-horizontal">
+                <div class="panel panel-default mb0">
+                    <div class="panel-heading"> 磁盘使用率 </div>
+                    <div class="panel-body">
+                        <div style="height: 300px; -webkit-tap-highlight-color: transparent; user-select: none; background-color: rgba(0, 0, 0, 0); cursor: default;"
+                            id="chart_1559272994270" class="king-chart-box chart-area " _echarts_instance_="1559131227558"></div>
+                    </div>
                 </div>
+            </form>
             </div>
+            </div>
+            <script>
+                function createEStandLineChart(conf) {
+                    var myChart = echarts.init(document.getElementById(conf.selector));
+                    var legendData = []
+                    for (var i = 0; i < conf.data.series.length; i++) {
+                        legendData.push(conf.data.series[i].name)
+                    }
+                    myChart.setOption({
+                        tooltip: {
+                            trigger: 'axis'
+                        },
+                        legend: {
+                            y: 'bottom',
+                            data: legendData
+                        },
+                        toolbox: {
+                            show: true,
+                            feature: {
+                                mark: { show: true },
+                                dataView: { show: true, readOnly: false },
+                                magicType: { show: true, type: ['bar', 'line'] },
+                                restore: { show: true },
+                                saveAsImage: { show: true }
+                            }
+                        },
+                        calculable: true,
+                        xAxis: [
+                            {
+                                type: 'category',
+                                data: conf.data.xAxis
+                            }
+                        ],
+                        yAxis: [
+                            {
+                                type: 'value',
+                                splitArea: { show: true }
+                            }
+                        ],
+                        series: conf.data.series
+                    });
+                }
+                function initEStandLineChart(conf) {
+                    $.ajax({
+                        url: conf.url,
+                        type: 'GET',
+                        dataType: conf.dataType,
+                        success: function (res) {
+                            //获取数据成功
+                            if (res.result) {
+                                createEStandLineChart({
+                                    selector: conf.containerId, // 图表容器
+                                    data: res.data, // 图表数据
+                                });
+                            }
+                        }
+                    })
+                }
+            </script>
+            <script>
+                $(function () {
+                    initEStandLineChart({
+                        url: '{{ SITE_URL }}get_dfusage/',
+                        dataType: 'json',
+                        containerId: 'chart_1559272994270'
+                    });
+                });
+            </script>
+
         </div>
     </div>
 </body>
