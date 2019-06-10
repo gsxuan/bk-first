@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from blueapps.account.models import User
 from blueking.component.shortcuts import get_client_by_request
 # Create your views here.
 
