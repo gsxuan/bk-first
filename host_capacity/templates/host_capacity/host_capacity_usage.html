@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/bootstrap-3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <!-- kendo ui css -->
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/kendoui-2015.2.624/styles/kendo.common.min.css" rel="stylesheet">
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/kendoui-2015.2.624/styles/kendo.default.min.css" rel="stylesheet">
+    <!-- font-awesome -->
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/fontawesome/css/font-awesome.css" rel="stylesheet">
+    <!--蓝鲸提供的公用样式库 -->
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/bk/css/bk.css" rel="stylesheet">
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/bk/css/bk_pack.css" rel="stylesheet">
+    <!-- 如果要使用Bootstrap的js插件，必须先调入jQuery -->
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/js/jquery-1.10.2.min.js"></script>
+    <!-- 包括所有bootstrap的js插件或者可以根据需要使用的js插件调用　-->
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/echarts-2.0/echarts-all.js"></script>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <!-- 包括所有kendoui的js插件或者可以根据需要使用的js插件调用　-->
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/kendoui-2015.2.624/js/kendo.all.min.js"></script>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/echarts-2.0/echarts-all.js"></script>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/bk/js/bk.js"></script>
+    <!-- 数据埋点统计 -->
+    <script src="http://magicbox.bk.tencent.com/static_api/analysis.js"></script>
+	{{ block.super }}
+{% endblock %}
+
+{% block content %}
+	<div>
+		<h3>主机磁盘容量周期查询记录</h3>
+	</div>
+    <div>
+    <div class="king-page-box">
+        <div class="king-container clearfix">
+            <div class="container-fluid mb0 ">
+                <div class="row">
+                    <div class="col-md-10">
+                        <form class="form-horizontal">
+                            <div class="form-group clearfix ">
+                                <label class="col-sm-3 control-label bk-lh30 pt0">磁盘分区：</label>
+                                <div class="col-sm-9">
+                                    <select name="disk_options" id="disk_options" class="form-control bk-valign-top">
+                                        {% for option in options %}
+                                            <option value="{{ option }}">{{ option }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group clearfix">
+                                <div class="col-sm-9 col-sm-offset-3">
+                                    <button type="button" class="king-btn mr10  king-success" onclick="updateEStandLineChart(conf);">提交</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div style="height: 300px; -webkit-tap-highlight-color: transparent; user-select: none; background-color: rgba(0, 0, 0, 0); cursor: default;" id="chart_1558341155735" class="king-chart-box chart-area " _echarts_instance_="1559711042329"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_block %}
+    <script>$('.nav li:nth-child(4)').addClass("king-navbar-active")</script>
+     <script>
+        function createEStandLineChart(conf){
+            var myChart = echarts.init(document.getElementById(conf.selector));
+            var legendData = []
+            for(var i=0; i < conf.data.series.length;i++){
+                legendData.push(conf.data.series[i].name)
+            }
+            myChart.setOption({
+                tooltip : {
+                    trigger: 'axis'
+                },
+                legend: {
+                    y: 'bottom',
+                    data:legendData
+                },
+                toolbox: {
+                    show : true,
+                    feature : {
+                        mark : {show: true},
+                        dataView : {show: true, readOnly: false},
+                        magicType : {show: true, type: ['bar','line']},
+                        restore : {show: true},
+                        saveAsImage : {show: true}
+                    }
+                },
+                calculable : true,
+                xAxis : [
+                    {
+                        type : 'category',
+                        data : conf.data.xAxis
+                    }
+                ],
+                yAxis : [
+                    {
+                        type : 'value',
+                        splitArea : {show : true}
+                    }
+                ],
+                series : conf.data.series
+            });
+         }
+        function updateEStandLineChart(conf){
+            $.ajax({
+                url: conf.url,
+                type: 'GET',
+                data: {
+                    'disk': $('#disk_options option:selected').val(),
+                },
+                dataType: conf.dataType,
+                success: function(res){
+                    //获取数据成功
+                    if (res.result){
+                        createEStandLineChart({
+                            selector: conf.containerId, // 图表容器
+                            data: res.data, // 图表数据
+                        });
+                    }
+                }
+            })
+        }
+        var conf = {
+            url: '{{ SITE_URL }}disk_capacity/get_chart_data/',
+            dataType: 'json',
+            containerId: 'chart_1558341155735'
+        };
+     </script>
+    <script>
+        $(function() {
+            updateEStandLineChart(conf);
+        })
+    </script>
+{% endblock %}
+

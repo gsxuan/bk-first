@@ -71,87 +71,112 @@
                     </div>
                 </div>
             </nav>
-            <form class="form-horizontal">
-                <div class="panel panel-default mb0">
-                    <div class="panel-heading"> 磁盘使用率 </div>
-                    <div class="panel-body">
+
+    <div class="panel panel-default mb0">
+        <div class="panel-heading"> 磁盘使用率 </div>
+            <div class="panel-body">
+                <div class="king-page-box">
+                    <div class="king-container clearfix">
+                        <div class="container-fluid mb0 ">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <form class="form-horizontal">
+                                        <div class="form-group clearfix ">
+                                            <label class="col-sm-3 control-label bk-lh30 pt0">磁盘分区：</label>
+                                            <div class="col-sm-9">
+                                                <select name="disk_options" id="disk_options" class="form-control bk-valign-top">
+                                                    <option value="{{ option }}">{{ option }}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group clearfix">
+                                            <div class="col-sm-9 col-sm-offset-3">
+                                                <button type="button" class="king-btn mr10  king-success"
+                                                    onclick="updateEStandLineChart(conf);">提交</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                         <div style="height: 300px; -webkit-tap-highlight-color: transparent; user-select: none; background-color: rgba(0, 0, 0, 0); cursor: default;"
-                            id="chart_1559272994270" class="king-chart-box chart-area " _echarts_instance_="1559131227558"></div>
+                            id="chart_1558341155735" class="king-chart-box chart-area " _echarts_instance_="1559711042329"></div>
                     </div>
                 </div>
-            </form>
             </div>
-            </div>
-            <script>
-                function createEStandLineChart(conf) {
-                    var myChart = echarts.init(document.getElementById(conf.selector));
-                    var legendData = []
-                    for (var i = 0; i < conf.data.series.length; i++) {
-                        legendData.push(conf.data.series[i].name)
-                    }
-                    myChart.setOption({
-                        tooltip: {
-                            trigger: 'axis'
-                        },
-                        legend: {
-                            y: 'bottom',
-                            data: legendData
-                        },
-                        toolbox: {
-                            show: true,
-                            feature: {
-                                mark: { show: true },
-                                dataView: { show: true, readOnly: false },
-                                magicType: { show: true, type: ['bar', 'line'] },
-                                restore: { show: true },
-                                saveAsImage: { show: true }
-                            }
-                        },
-                        calculable: true,
-                        xAxis: [
-                            {
-                                type: 'category',
-                                data: conf.data.xAxis
-                            }
-                        ],
-                        yAxis: [
-                            {
-                                type: 'value',
-                                splitArea: { show: true }
-                            }
-                        ],
-                        series: conf.data.series
-                    });
-                }
-                function initEStandLineChart(conf) {
-                    $.ajax({
-                        url: conf.url,
-                        type: 'GET',
-                        dataType: conf.dataType,
-                        success: function (res) {
-                            //获取数据成功
-                            if (res.result) {
-                                createEStandLineChart({
-                                    selector: conf.containerId, // 图表容器
-                                    data: res.data, // 图表数据
-                                });
-                            }
-                        }
-                    })
-                }
-            </script>
-            <script>
-                $(function () {
-                    initEStandLineChart({
-                        url: '{{ SITE_URL }}get_dfusage/',
-                        dataType: 'json',
-                        containerId: 'chart_1559272994270'
-                    });
-                });
-            </script>
-
-        </div>
     </div>
 </body>
+    <script>$('.nav li:nth-child(4)').addClass("king-navbar-active")</script>
+    <script>
+        function createEStandLineChart(conf) {
+            var myChart = echarts.init(document.getElementById(conf.selector));
+            var legendData = []
+            for (var i = 0; i < conf.data.series.length; i++) {
+                legendData.push(conf.data.series[i].name)
+            }
+            myChart.setOption({
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    y: 'bottom',
+                    data: legendData
+                },
+                toolbox: {
+                    show: true,
+                    feature: {
+                        mark: { show: true },
+                        dataView: { show: true, readOnly: false },
+                        magicType: { show: true, type: ['bar', 'line'] },
+                        restore: { show: true },
+                        saveAsImage: { show: true }
+                    }
+                },
+                calculable: true,
+                xAxis: [
+                    {
+                        type: 'category',
+                        data: conf.data.xAxis
+                    }
+                ],
+                yAxis: [
+                    {
+                        type: 'value',
+                        splitArea: { show: true }
+                    }
+                ],
+                series: conf.data.series
+            });
+        }
+        function updateEStandLineChart(conf) {
+            $.ajax({
+                url: conf.url,
+                type: 'GET',
+                data: {
+                    'disk': $('#disk_options option:selected').val(),
+                },
+                dataType: conf.dataType,
+                success: function (res) {
+                    //获取数据成功
+                    if (res.result) {
+                        createEStandLineChart({
+                            selector: conf.containerId, // 图表容器
+                            data: res.data, // 图表数据
+                        });
+                    }
+                }
+            })
+        }
+        var conf = {
+            url: '{{ SITE_URL }}get_chart_data/',
+            dataType: 'json',
+            containerId: 'chart_1558341155735'
+        };
+    </script>
+    <script>
+        $(function () {
+            updateEStandLineChart(conf);
+        })
+    </script>
 
 </html>

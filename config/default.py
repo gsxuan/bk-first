@@ -25,6 +25,7 @@ INSTALLED_APPS += (
     'mako_application',
     'x01',
     'get_capacity',
+    'host_capacity',
 )
 
 # 这里是默认的中间件，大部分情况下，不需要改动

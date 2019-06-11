@@ -26,4 +26,6 @@ urlpatterns = [
     # 这里的 mako_application 可以改成你想要的名字
     url(r'^mako/', include('mako_application.urls')),
     url(r'^get_capacity/', include('get_capacity.urls')),
+    url(r'^disk_capacity/', include('host_capacity.urls')),
+    url(r'^apis/', include('host_capacity.api_urls')),
 ]
