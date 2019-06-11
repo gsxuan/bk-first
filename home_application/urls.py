@@ -25,7 +25,7 @@ urlpatterns = (
     url(r'^hostdata/$', views.host_data),
     url(r'^hello4/$', views.hello4),
     url(r'^get_dfusage/$', views.api_disk_usage),
-    url(r'^get_hosts/$', views.get_hosts),
+
     url(r'^hello5/$', views.hello5),
     url(r'^hello6/$', views.hello4),
 )
