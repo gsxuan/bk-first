@@ -26,7 +26,6 @@ def save_disk_capacity():
                 'ip': ip,
             }
         ],
-        'account': 'root',
         'script_content': base64.b64encode(b'df -hl').decode('utf-8'),
     }
 

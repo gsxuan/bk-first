@@ -5,7 +5,7 @@ from django.http import JsonResponse
 from config import API_TOKEN
 from blueapps.utils.logger import logger
 from blueapps.account.decorators import login_exempt
-from host_capacity.models import HostCapacity
+from home_application.models import HostCapacity
 
 
 @login_exempt

@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 
-from host_capacity import host_capacity_apis
+from home_application import host_capacity_apis
 
 urlpatterns = (
     url(r'^get_disk_usage/$', host_capacity_apis.get_host_capacity_api),
