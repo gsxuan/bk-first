@@ -88,7 +88,7 @@ def save_disk_capacity():
         return
     else:
         logger.error('获取脚本实例')
-        
+
     log_kwargs = {
         'bk_biz_id': biz_id,
         'job_instance_id': job_instance_id,
@@ -101,3 +101,7 @@ def save_disk_capacity():
         logger.info(msg)
     else:
         logger.error(msg)
+
+
+@periodic_task(run_every=datetime.timedelta(seconds=1))
+    logger.error('get disk work starting')

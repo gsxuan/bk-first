@@ -10,7 +10,8 @@ from django.http.response import JsonResponse
 from .models import HostModelManager
 from .models import Hostlist
 
-from .models import HostCapacity, HostCapacityApiCheckRecord
+from .models import HostCapacity
+from .models import HostCapacityApiCheckRecord
 from blueking.component.shortcuts import get_client_by_request
 
 
@@ -81,17 +82,9 @@ def hello4(request):
     """
     hello4
     """
-    return render(request, 'home_application/hello4.html')
-
-
-
-
-def show_host_capacity_usage(request):
-    """
-    指定磁盘分区占用率查询
-    """
     options = HostCapacity.objects.get_disk_list()
-    return render(request, 'host_capacity/host_capacity_usage.html', context={'options': options})
+    return render(request, 'home_application/hello4.html', context={'options': options})
+
 
 
 def get_host_capacity_usage_data(request):

@@ -82,6 +82,7 @@ CELERYD_CONCURRENCY = os.getenv('BK_CELERYD_CONCURRENCY', 2)
 
 # CELERY 配置，申明任务的文件路径，即包含有 @task 装饰器的函数文件
 CELERY_IMPORTS = (
+    'home_application.celery_tasks',
 )
 
 # load logging settings
