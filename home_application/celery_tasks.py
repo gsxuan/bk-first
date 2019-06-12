@@ -58,7 +58,6 @@ def save_host_capacity_usage(client, ip,  log_kwargs):
 
 
 @periodic_task(run_every=crontab(minute='00', hour='*', day_of_week="*"))
-# @periodic_task(run_every=datetime.timedelta(seconds=20))
 def save_disk_capacity():
     """
     周期性任务，调用快速作业脚本api，获取磁盘分区数据并入库
@@ -86,8 +85,6 @@ def save_disk_capacity():
     if not result:
         logger.error('无法获取脚本实例')
         return
-    else:
-        logger.error('获取脚本实例')
 
     log_kwargs = {
         'bk_biz_id': biz_id,

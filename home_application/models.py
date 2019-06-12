@@ -92,16 +92,3 @@ class HostCapacity(models.Model):
 
     class Meta:
         verbose_name = verbose_name_plural = '磁盘容量数据'
-
-
-class HostCapacityApiCheckRecord(models.Model):
-    ip = models.CharField('ip', max_length=64)
-    mounted = models.CharField('mounted', max_length=64)
-    used_percent = models.CharField('used_percent', max_length=64)
-    check_time = models.DateTimeField('check time', auto_now=True)
-
-    def __str__(self):
-        return '{} {} {} {}'.format(self.ip, self.mounted, self.used_percent, self.check_time)
-
-    class Meta:
-        verbose_name = verbose_name_plural = 'API磁盘容量查询记录'
