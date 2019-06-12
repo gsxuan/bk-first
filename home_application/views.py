@@ -11,7 +11,6 @@ from .models import HostModelManager
 from .models import Hostlist
 
 from .models import HostCapacity
-from .models import HostCapacityApiCheckRecord
 from blueking.component.shortcuts import get_client_by_request
 
 

@@ -25,10 +25,7 @@ urlpatterns = (
     url(r'^hostdata/$', views.host_data),
     url(r'^hello4/$', views.hello4),
     url(r'^get_chart_data/$', views.get_host_capacity_usage_data),
-    url(r'^disk_api_check/$', views.show_disk_api_page),
     url(r'^update_mounted_list/$', views.update_mounted_list),
-    url(r'^get_disk_capacity/$', views.get_disk_capacity_data),
-    url(r'^check_history/$', views.get_check_history),
     url(r'^hello5/$', views.hello5),
     url(r'^hello6/$', views.hello4),
 )
