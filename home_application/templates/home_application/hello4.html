@@ -85,7 +85,9 @@
                                             <label class="col-sm-3 control-label bk-lh30 pt0">磁盘分区：</label>
                                             <div class="col-sm-9">
                                                 <select name="disk_options" id="disk_options" class="form-control bk-valign-top">
+                                                    {% for option in options %}
                                                     <option value="{{ option }}">{{ option }}</option>
+                                                    {% endfor %}
                                                 </select>
                                             </div>
                                         </div>

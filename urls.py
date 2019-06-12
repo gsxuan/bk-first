@@ -27,5 +27,4 @@ urlpatterns = [
     url(r'^mako/', include('mako_application.urls')),
     url(r'^get_capacity/', include('get_capacity.urls')),
     url(r'^disk_capacity/', include('home_application.urls')),
-    url(r'^apis/', include('home_application.api_urls')),
 ]
