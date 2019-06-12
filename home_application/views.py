@@ -119,35 +119,11 @@ def get_host_capacity_usage_data(request):
 
 
 #作业五
-def _get_api_info(client, api_params={}):
-    """
-    从自助接入的API获取对应返回信息
-    """
-    api_params.update({'token': 'host_capacity'})
-    res = client.earlybird_host_capacity.get_disk_usage(api_params)
-    failed_flag = None if 'mounted' in api_params else []
-    return res.get('data') if res.get('result') else failed_flag
-
-
 def hello5(request):
     """
-    api磁盘分区容量查询页面
+    hello5
     """
-    client = get_client_by_request(request)
-    ip_list = _get_api_info(client)
-    mounted_list = [] if len(ip_list) == 0 else _get_api_info(
-        client, {'ip': ip_list[0]})
-    return render(request, 'home_application/hello5.html', {'ip_list': ip_list, 'mounted_list': mounted_list})
-
-
-def update_mounted_list(request):
-    """
-    根据页面选中ip更新对应分区列表
-    """
-    ip = request.GET.get('ip', '')
-    client = get_client_by_request(request)
-    mounted_list = _get_api_info(client, {'ip': ip})
-    return JsonResponse({'updated_mounted_list': mounted_list})
+    return render(request, 'home_application/hello4.html')
 
 #作业六
 def hello6(request):
