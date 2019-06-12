@@ -1,6 +1,7 @@
 # coding:utf-8
 
 import base64
+import datetime
 
 from celery.schedules import crontab
 from celery.task import periodic_task
@@ -10,13 +11,15 @@ from .api_utils import get_fast_execute_script_job_instance_id, save_host_capaci
 from blueapps.utils.logger import logger
 
 
-@periodic_task(run_every=crontab(minute='00', hour='*', day_of_week="*"))
+# @periodic_task(run_every=crontab(minute='00', hour='*', day_of_week="*"))
+@periodic_task(run_every=datetime.timedelta(seconds=20))
 def save_disk_capacity():
     """
     周期性任务，调用快速作业脚本api，获取磁盘分区数据并入库
     """
-    client = get_client_by_user('844716598')
-    biz_id = 4
+    user = User.objects.get(username=844716598)
+    client = get_client_by_user(user.username)  # 这里是周期任务，不能通过request请求client
+    biz_id = 4  #测试业务
     ip = '10.0.1.80'
     script_kwargs = {
         'bk_biz_id': biz_id,
@@ -26,6 +29,7 @@ def save_disk_capacity():
                 'ip': ip,
             }
         ],
+        'account': 'root',
         'script_content': base64.b64encode(b'df -hl').decode('utf-8'),
     }
 
