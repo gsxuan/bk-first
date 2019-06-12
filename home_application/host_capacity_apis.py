@@ -2,7 +2,7 @@
 
 from django.http import JsonResponse
 
-from config import API_TOKEN
+# from config import API_TOKEN
 from blueapps.utils.logger import logger
 from blueapps.account.decorators import login_exempt
 from home_application.models import HostCapacity
@@ -14,8 +14,8 @@ def get_host_capacity_api(request):
     ip = request.GET.get('ip')
     disk = request.GET.get('mounted')
 
-    if token != API_TOKEN:
-        return JsonResponse({'result': False, 'message': 'token illegal.'})
+    # if token != API_TOKEN:
+    #     return JsonResponse({'result': False, 'message': 'token illegal.'})
 
     if ip is not None and disk is not None:  # 查找最新磁盘容量记录
         disk_data = HostCapacity.objects.get_disk_data_based_on_ip(ip, disk)
