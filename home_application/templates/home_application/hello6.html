@@ -37,6 +37,7 @@
     <script>
         function clearAll(params) {
             document.getElementById("host_ip").value = '10.0.1.80';
+            document.getElementById("mounted").value = '/';
             document.getElementById("host_note").value = 'Linux';
         }
     </script>
@@ -93,24 +94,20 @@
                                                     class="col-sm-3 control-label bk-lh30 pt0">主机ip：</label>
                                                 <div class="col-sm-9">
                                                     <input type="text" class="form-control bk-valign-top"
-                                                        id="host_ip" placeholder="192.168.0.1"> </div>
+                                                        id="host_ip" placeholder="192.168.0.1">
+                                                </div>
                                             </div>
                                             <div class="form-group clearfix ">
                                                 <label class="col-sm-3 control-label bk-lh30 pt0">磁盘分区：</label>
                                                 <div class="col-sm-9">
-                                                    <select name="disk_options" id="disk_options"
-                                                        class="form-control bk-valign-top">
-                                                        {% for option in options %}
-                                                        <option value="{{ option }}">{{ option }}</option>
-                                                        {% endfor %}
-                                                    </select>
+                                                       <input type="text" class="form-control bk-valign-top"
+                                                           id="mounted" placeholder="/">
                                                 </div>
                                             </div>
-                                            <div class="form-group has-feedback clearfix ">
-                                                <label class="control-label col-sm-3 pt0"
-                                                    for="introduction">系统平台：</label>
+                                            <div class="form-group clearfix ">
+                                                <label class="col-sm-3 control-label bk-lh30 pt0">系统平台：</label>
                                                 <div class="col-sm-9">
-                                                    <textarea class="form-control" rows="3"
+                                                    <textarea type="text" class="form-control bk-valign-top"
                                                         id="host_note" placeholder="Linux"></textarea>
                                                 </div>
                                             </div>
@@ -194,7 +191,7 @@
             url: '{{ SITE_URL }}get_chart_data/',
             type: 'GET',
             data: {
-                'disk': '/',
+                'disk': $('#mounted').val(),
             },
             dataType: 'json',
             success: function (res) {
