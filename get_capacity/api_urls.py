@@ -15,15 +15,8 @@ Including another URLconf
 """
 from django.conf.urls import url
 
-from get_capacity import views
-from get_capacity import get_capacity_api
+from get_capacity import get_capacity_apis
 
 urlpatterns = (
-    url(r'^$', views.show_get_capacity_usage),
-    url(r'^get_chart_data/$', views.get_get_capacity_usage_data),
-    url(r'^disk_api_check/$', views.show_disk_api_page),
-    url(r'^update_mounted_list/$', views.update_mounted_list),
-    url(r'^get_disk_capacity/$', views.get_disk_capacity_data),
-    url(r'^check_history/$', views.get_check_history),
-    url(r'^get_capacity_api/$', get_capacity_api.get_capacity_api),
+    url(r'^get_disk_usage/$', get_capacity_apis.get_get_capacity_api),
 )

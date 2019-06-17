@@ -1,80 +1,108 @@
+# coding:utf-8
+
 from django.shortcuts import render
-from django.http import HttpResponse
-from blueapps.account.models import User
+from django.http import JsonResponse
+
+from .models import HostCapacity, HostCapacityApiCheckRecord
 from blueking.component.shortcuts import get_client_by_request
-# Create your views here.
 
 
-def home(request):
+def show_get_capacity_usage(request):
     """
-    首页
+    指定磁盘分区占用率查询
     """
-    return render(request, 'get_capacity/home.html')
+    options = HostCapacity.objects.get_disk_list()
+    return render(request, 'get_capacity/get_capacity_usage.html', context={'options': options})
 
 
-def render_json(dictionary={}):
+def get_get_capacity_usage_data(request):
     """
-    return the json string for response
-    @summary: dictionary也可以是string, list数据
-    @note:  返回结果是个dict, 请注意默认数据格式:
-                                    {'result': '',
-                                     'message':''
-                                    }
+    特定磁盘分区占用率前端格式数据获取
     """
-    if type(dictionary) is not dict:
-        # 如果参数不是dict,则组合成dict
-        dictionary = {
-            'result': True,
-            'message': dictionary,
+    disk = request.GET.get('disk', '')
+    disk_data = HostCapacity.objects.get_disk_data(disk)
+
+    time_list = []
+    used_percent_list = []
+    for _data in disk_data:
+        time_list.append(_data.create_time.strftime('%Y-%m-%d %H:%M:%S'))
+        used_percent_list.append(float(_data.used_percent[:-1]))
+
+    res = {
+        'code': 0,
+        'result': True,
+        'message': 'success',
+        'data': {
+            'series': [{
+                'name': 'disk: '+disk,
+                'type': 'line',
+                'data': used_percent_list,
+            }],
+            'xAxis': time_list,
         }
-    return HttpResponse(json.dumps(dictionary), content_type='application/json')
+    }
+    return JsonResponse(res)
 
-def get_app(request):
+
+def _get_api_info(client, api_params={}):
     """
-    获取所有业务
+    从自助接入的API获取对应返回信息
     """
-    app_list = []
+    api_params.update({'token': 'get_capacity'})
+    res = client.earlybird_get_capacity.get_disk_usage(api_params)
+    failed_flag = None if 'mounted' in api_params else []
+    return res.get('data') if res.get('result') else failed_flag
+
+
+def show_disk_api_page(request):
+    """
+    api磁盘分区容量查询页面
+    """
     client = get_client_by_request(request)
-    kwargs = {}
-    resp = client.cc.get_app_list(**kwargs)
-
-    if resp.get('result'):
-        data = resp.get('data', [])
-        for _d in data:
-                app_list.append({
-                    'name': _d.get('ApplicationName'),
-                    'id': _d.get('ApplicationID'),
-                })
-        result = {'result' : resp.get('result'), 'data': app_list}
-        return render_json(result)
+    ip_list = _get_api_info(client)
+    mounted_list = [] if len(ip_list) == 0 else _get_api_info(client, {'ip': ip_list[0]})
+    return render(request, 'get_capacity/disk_api_page.html', {'ip_list': ip_list, 'mounted_list': mounted_list})
 
 
-# def get_ip_by_appid(request):
-#     """
-#     获取所有业务
-#     """
+def update_mounted_list(request):
+    """
+    根据页面选中ip更新对应分区列表
+    """
+    ip = request.GET.get('ip', '')
+    client = get_client_by_request(request)
+    mounted_list = _get_api_info(client, {'ip': ip})
+    return JsonResponse({'updated_mounted_list': mounted_list})
 
 
-# def get_task_list(request):
-#     """
-#     获取任务列表
-#     """
+def get_disk_capacity_data(request):
+    """
+    通过api查询分区容量使用比例并将查询记录入库
+    """
+    ip = request.GET.get('ip', '')
+    mounted = request.GET.get('mounted', '')
+    client = get_client_by_request(request)
+    disk_capacity = _get_api_info(client, {'ip': ip, 'mounted': mounted})
+    if isinstance(disk_capacity, dict):
+        HostCapacityApiCheckRecord.objects.create(ip=disk_capacity['ip'],
+                                                  used_percent=disk_capacity['used_percent'],
+                                                  mounted=disk_capacity['mounted'])
+        return JsonResponse({'result': True, 'message': 'success'})
+    return JsonResponse({'result': False, 'message': 'ip and mounted params needed'})
 
 
-# def execcute_task(request):
-#     """
-#     执行任务
-#     """
-
-
-# def get_capacity(request):
-#     """
-#     获取磁盘容量
-#     """
-
-
-# def get_capacity_chartdata(request):
-#     """
-#     获取数据
-#     """
+def get_check_history(request):
+    """
+    获取api查询历史
+    """
+    check_records = HostCapacityApiCheckRecord.objects.order_by('-check_time')
+    data = []
+    for idx, _record in enumerate(check_records):
+        data.append({
+            'index': idx,
+            'ip': _record.ip,
+            'mounted': _record.mounted,
+            'used_percent': _record.used_percent,
+            'check_time': _record.check_time.strftime('%Y-%m-%d %H:%M:%S')
+        })
+    return JsonResponse({'result': True, 'data': data})
 

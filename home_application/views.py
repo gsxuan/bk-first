@@ -86,7 +86,7 @@ def hello4(request):
 
 
 
-def get_host_capacity_usage_data(request):
+def get_get_capacity_usage_data(request):
     """
     特定磁盘分区占用率前端格式数据获取
     """
@@ -123,7 +123,7 @@ def hello5(request):
     """
     hello5
     """
-    return render(request, 'home_application/hello4.html')
+    return render(request, 'home_application/hello5.html')
 
 #作业六
 def hello6(request):

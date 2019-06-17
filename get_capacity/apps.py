@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class GetCapacityConfig(AppConfig):
+class HostCapacityConfig(AppConfig):
     name = 'get_capacity'

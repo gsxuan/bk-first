@@ -25,7 +25,7 @@ def get_fast_execute_script_job_instance_id(client, script_kwargs):
     return res.get('result'), job_instance_id
 
 
-def save_host_capacity_usage(client, ip,  log_kwargs):
+def save_get_capacity_usage(client, ip,  log_kwargs):
     """
     读取快速执行脚本作业日志，获取主机磁盘容量数据并入库
     """
@@ -92,7 +92,7 @@ def save_disk_capacity():
     }
 
     # 读取主机容量查询结果并入库
-    result, msg = save_host_capacity_usage(client, ip, log_kwargs)
+    result, msg = save_get_capacity_usage(client, ip, log_kwargs)
 
     if result:
         logger.info(msg)
