@@ -13,7 +13,7 @@ from .models import Hostlist
 from .models import HostCapacity
 from blueking.component.shortcuts import get_client_by_request
 
-
+from blueapps.account.decorators import login_exempt
 
 
 
@@ -86,7 +86,7 @@ def hello4(request):
 
 
 
-def get_get_capacity_usage_data(request):
+def get_capacity_usage_data(request):
     """
     特定磁盘分区占用率前端格式数据获取
     """
@@ -115,15 +115,41 @@ def get_get_capacity_usage_data(request):
     return JsonResponse(res)
 
 
-
-
-
 #作业五
 def hello5(request):
     """
     hello5
     """
     return render(request, 'home_application/hello5.html')
+
+
+@login_exempt
+def get_capacity_api(request):
+    """
+    特定磁盘分区占用率前端格式数据获取
+    """
+    disk = request.GET.get('disk', '')
+    disk_data = HostCapacity.objects.get_disk_data(disk)
+
+    time_list = []
+    used_percent_list = []
+    for _data in disk_data:
+        time_list.append(_data.create_time.strftime('%Y-%m-%d %H:%M:%S'))
+        used_percent_list.append(float(_data.used_percent[:-1]))
+
+    res = {
+        'result': True,
+        'message': 'success',
+        'data': {
+            'series': [{
+                'name': 'disk: '+disk,
+                'type': 'line',
+                'data': used_percent_list,
+            }],
+            'xAxis': time_list,
+        }
+    }
+    return JsonResponse(res)
 
 #作业六
 def hello6(request):
