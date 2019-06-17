@@ -1,0 +1,223 @@
+<!--HTML-->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>作业4</title>
+    <!-- 若您需要使用Kendo UI Professional，请联系版权人获得合法的授权或许可。 -->
+    <!-- Bootstrap css -->
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/bootstrap-3.3.4/css/bootstrap.min.css"
+        rel="stylesheet">
+    <!-- kendo ui css -->
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/kendoui-2015.2.624/styles/kendo.common.min.css"
+        rel="stylesheet">
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/kendoui-2015.2.624/styles/kendo.default.min.css"
+        rel="stylesheet">
+    <!-- font-awesome -->
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/fontawesome/css/font-awesome.css" rel="stylesheet">
+    <!--蓝鲸提供的公用样式库 -->
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/bk/css/bk.css" rel="stylesheet">
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/bk/css/bk_pack.css" rel="stylesheet">
+    <!-- 如果要使用Bootstrap的js插件，必须先调入jQuery -->
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/js/jquery-1.10.2.min.js"></script>
+    <!-- 包括所有bootstrap的js插件或者可以根据需要使用的js插件调用　-->
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/echarts-2.0/echarts-all.js"></script>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <!-- 包括所有kendoui的js插件或者可以根据需要使用的js插件调用　-->
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/kendoui-2015.2.624/js/kendo.all.min.js"></script>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/echarts-2.0/echarts-all.js"></script>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/bk/js/bk.js"></script>
+    <!-- 数据埋点统计 -->
+    <script src="http://magicbox.bk.tencent.com/static_api/analysis.js"></script>
+    <!-- crsf -->
+    <script src="{{ SITE_URL }}static/js/csrftoken.js"></script>
+    <script>
+        function clearAll(params) {
+            document.getElementById("host_ip").value = '10.0.1.80';
+            document.getElementById("host_note").value = 'Linux';
+        }
+    </script>
+</head>
+
+<body class="bg-white" data-bg-color="bg-white">
+    <div class="king-page-box">
+        <div class="king-container clearfix">
+            <nav class="">
+                <div style="overflow:hidden; z-index: inherit;" class="navbar king-horizontal-nav1  f14">
+                    <div class="navbar-container">
+                        <div class="navbar-header pull-left">
+                            <a class="navbar-brand" href="javascript:;">
+                                <img src="https://magicbox.bk.tencent.com/static_api/v3/bk/images/logo.png"
+                                    class="logo"> </a>
+                        </div>
+                        <ul class="nav navbar-nav pull-left m0">
+                            <li><a href="{{ SITE_URL }}">作业一</a></li>
+                            <li><a href="{{ SITE_URL }}hello2">作业二</a></li>
+                            <li><a href="{{ SITE_URL }}hello3">作业三</a></li>
+                            <li><a href="{{ SITE_URL }}hello4">作业四</a></li>
+                            <li><a href="{{ SITE_URL }}hello5">作业五</a></li>
+                            <li class="active"><a href="#top">作业六</a></li>
+                            <li><a href="https://bk.tencent.com/s-mart/community/question/440">活动页面</a></li>
+                            <li><a href="https://bk.tencent.com/s-mart/community/question/448">活动问答</a></li>
+                        </ul>
+                        <div class="navbar-header pull-right">
+                            <ul class="nav">
+                                <li class="user-info">
+                                    <a href="javascript:;">
+                                        <img class="img-rounded"
+                                            src="https://magicbox.bk.tencent.com/static_api/v3/components/horizontal_nav1/images/avatar.png">
+                                        <span>844716598</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="panel panel-default mb0">
+                <div class="panel-heading"> 磁盘使用率 </div>
+                <div class="panel-body">
+                    <div class="king-page-box">
+                        <div class="king-container clearfix">
+                            <div class="container-fluid mb0 ">
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <form class="form-horizontal">
+
+                                            <div class="form-group clearfix ">
+                                                <label
+                                                    class="col-sm-3 control-label bk-lh30 pt0">主机ip：</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control bk-valign-top"
+                                                        id="host_ip" placeholder="192.168.0.1"> </div>
+                                            </div>
+                                            <div class="form-group clearfix ">
+                                                <label class="col-sm-3 control-label bk-lh30 pt0">磁盘分区：</label>
+                                                <div class="col-sm-9">
+                                                    <select name="disk_options" id="disk_options"
+                                                        class="form-control bk-valign-top">
+                                                        {% for option in options %}
+                                                        <option value="{{ option }}">{{ option }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group has-feedback clearfix ">
+                                                <label class="control-label col-sm-3 pt0"
+                                                    for="introduction">系统平台：</label>
+                                                <div class="col-sm-9">
+                                                    <textarea class="form-control" rows="3"
+                                                        id="host_note" placeholder="Linux"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-group clearfix">
+                                                <div class="col-sm-9 col-sm-offset-3">
+                                                    <button type="button" class="king-btn mr10  king-success"
+                                                        onclick="updateEStandLineChart(conf);">提交</button>
+                                                        <button type="button" class="king-btn king-default "
+                                                            onclick="clearAll()">输入</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="height: 300px; -webkit-tap-highlight-color: transparent; user-select: none; background-color: rgba(0, 0, 0, 0); cursor: default;"
+                                id="chart_1558341155735" class="king-chart-box chart-area "
+                                _echarts_instance_="1559711042329"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+</body>
+<script>
+    $('.nav li:nth-child(4)').addClass("king-navbar-active")
+</script>
+<script>
+    function createEStandLineChart(conf) {
+        var myChart = echarts.init(document.getElementById(conf.selector));
+        var legendData = []
+        for (var i = 0; i < conf.data.series.length; i++) {
+            legendData.push(conf.data.series[i].name)
+        }
+        myChart.setOption({
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                y: 'bottom',
+                data: legendData
+            },
+            toolbox: {
+                show: true,
+                feature: {
+                    mark: {
+                        show: true
+                    },
+                    dataView: {
+                        show: true,
+                        readOnly: false
+                    },
+                    magicType: {
+                        show: true,
+                        type: ['bar', 'line']
+                    },
+                    restore: {
+                        show: true
+                    },
+                    saveAsImage: {
+                        show: true
+                    }
+                }
+            },
+            calculable: true,
+            xAxis: [{
+                type: 'category',
+                data: conf.data.xAxis
+            }],
+            yAxis: [{
+                type: 'value',
+                splitArea: {
+                    show: true
+                }
+            }],
+            series: conf.data.series
+        });
+    }
+
+    function updateEStandLineChart(conf) {
+        $.ajax({
+            url: conf.url,
+            type: 'GET',
+            data: {
+                'disk': $('#disk_options option:selected').val(),
+            },
+            dataType: conf.dataType,
+            success: function (res) {
+                //获取数据成功
+                if (res.result) {
+                    createEStandLineChart({
+                        selector: conf.containerId, // 图表容器
+                        data: res.data, // 图表数据
+                    });
+                }
+            }
+        })
+    }
+    var conf = {
+        url: '{{ SITE_URL }}get_chart_data/',
+        dataType: 'json',
+        containerId: 'chart_1558341155735'
+    };
+</script>
+<script>
+    $(function () {
+        updateEStandLineChart(conf);
+    })
+</script>
+
+</html>

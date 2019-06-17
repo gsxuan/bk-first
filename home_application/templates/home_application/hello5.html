@@ -51,8 +51,8 @@
                             <li><a href="{{ SITE_URL }}">作业一</a></li>
                             <li><a href="{{ SITE_URL }}hello2">作业二</a></li>
                             <li><a href="{{ SITE_URL }}hello3">作业三</a></li>
-                            <li class="active"><a href="#top">作业四</a></li>
-                            <li><a href="{{ SITE_URL }}hello5">作业五</a></li>
+                            <li><a href="{{ SITE_URL }}hello4">作业四</a></li>
+                            <li class="active"><a href="#top">作业五</a></li>
                             <li><a href="{{ SITE_URL }}hello6">作业六</a></li>
                             <li><a href="https://bk.tencent.com/s-mart/community/question/440">活动页面</a></li>
                             <li><a href="https://bk.tencent.com/s-mart/community/question/448">活动问答</a></li>
@@ -74,16 +74,9 @@
 {% block content %}
 <div class="king-page-box">
     <div class="king-container clearfix">
-        <div class="king-block king-block-bordered king-block-themed mb0">
-            <div class="king-block-header king-info">
-                <ul class="king-block-options">
-                    <li>
-                        <!-- <button type="button"><i class="fa fa-cog"></i></button> -->
-                    </li>
-                </ul>
-                <h3 class="king-block-title">API查询参数</h3>
-            </div>
-            <div class="king-block-content">
+            <div class="panel panel-default mb0">
+                <div class="panel-heading"> API查询参数 </div>
+                    <div class="king-block-content">
                 <form class="form-horizontal">
                     <div class="form-group clearfix ">
                         <label class="col-sm-3 control-label bk-lh30 pt0">IP：</label>
@@ -105,6 +98,13 @@
                             </select>
                         </div>
                     </div>
+                    <div class="form-group has-feedback clearfix ">
+                        <label class="control-label col-sm-3 pt0" for="introduction">系统平台：</label>
+                        <div class="col-sm-6">
+                            <textarea class="form-control" rows="3" id="host_note"
+                                placeholder="Linux"></textarea>
+                        </div>
+                    </div>
                     <div class="form-group clearfix">
                         <div class="col-sm-9 col-sm-offset-3">
                             <button type="button" class="king-btn mr10  king-success"
@@ -115,14 +115,8 @@
             </div>
         </div>
         <div class="king-block king-block-bordered king-block-themed mb0">
-            <div class="king-block-header king-info">
-                <ul class="king-block-options">
-                    <li>
-                        <!-- <button type="button"><i class="fa fa-cog"></i></button> -->
-                    </li>
-                </ul>
-                <h3 class="king-block-title">查询记录</h3>
-            </div>
+            <div class="panel panel-default mb0">
+                <div class="panel-heading"> 磁盘使用率 </div>
             <div class="king-block-content">
                 <div style="height:310px; overflow: auto;" id="list_1559800076040" class="king-list3 m0">
                     <table class="king-list3-table ranger-box">
@@ -140,7 +134,7 @@
                 </template>
                 <template id="ranger_tpl">
                     <tr>
-                        {#                            <td style="width:42px;">#index#</td>#}
+                        {#<td style="width:42px;">#index#</td>#}
                         <td style="width:20%;">#ip#</td>
                         <td style="width:20%;">#mounted#</td>
                         <td style="width:20%;">#used_percent#</td>
@@ -179,7 +173,7 @@
 
     function get_capacity() {
         $.ajax({
-            url: '{{ SITE_URL }}disk_capacity/get_disk_capacity/',
+            url: '{{ SITE_URL }}get_chart_data/',
             data: {
                 'ip': $('#ip_list :selected').val(),
                 'mounted': $('#mounted_list :selected').val(),
