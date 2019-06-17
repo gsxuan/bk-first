@@ -156,4 +156,4 @@ def hello6(request):
     """
     hello6
     """
-    return render(request, 'home_application/hello6.html')
+    return render(request, 'home_application/hello5.html')
