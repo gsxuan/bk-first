@@ -191,17 +191,17 @@
 
     function updateEStandLineChart(conf) {
         $.ajax({
-            url: conf.url,
+            url: '{{ SITE_URL }}get_chart_data/',
             type: 'GET',
             data: {
-                'disk': $('#disk_options option:selected').val(),
+                'disk': '/',
             },
-            dataType: conf.dataType,
+            dataType: 'json',
             success: function (res) {
                 //获取数据成功
                 if (res.result) {
                     createEStandLineChart({
-                        selector: conf.containerId, // 图表容器
+                        selector: 'chart_1558341155735', // 图表容器
                         data: res.data, // 图表数据
                     });
                 }
