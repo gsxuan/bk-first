@@ -128,6 +128,8 @@ def get_capacity_api(request):
     """
     特定磁盘分区占用率前端格式数据获取
     """
+    ip = request.GET.get('ip', '')
+    system = request.GET.get('system', '')
     disk = request.GET.get('disk', '')
     disk_data = HostCapacity.objects.get_disk_data(disk)
 
@@ -151,9 +153,20 @@ def get_capacity_api(request):
     }
     return JsonResponse(res)
 
+
+def get_usage_data(request):
+    """
+    调用自主接入接口api
+    """
+    if request.method == 'POST':
+        client = get_client_by_request(request)
+        kwargs = json.loads(request.body)
+        usage = client.self_server.get_disk_usage(kwargs)
+        return JsonResponse(usage)
+
 #作业六
 def hello6(request):
     """
     hello6
     """
-    return render(request, 'home_application/hello5.html')
+    return render(request, 'home_application/home.html')

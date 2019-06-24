@@ -28,6 +28,7 @@ urlpatterns = (
     url(r'^get_chart_data/$', views.get_capacity_usage_data),
     url(r'^hello5/$', views.hello5),
     url(r'^get_capacity_x/$', views.get_capacity_api),
+    url(r'^get_usage_data/$', views.get_usage_data),
     url(r'^get_capacity_api/$', get_capacity_api.get_capacity_api),
     url(r'^hello6/$', views.hello6),
 )

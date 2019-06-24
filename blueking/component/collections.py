@@ -7,7 +7,7 @@ from .apis.cmsi import CollectionsCMSI
 from .apis.gse import CollectionsGSE
 from .apis.job import CollectionsJOB
 from .apis.sops import CollectionsSOPS
-from .apis.get_capacity_api import CollectionsGetCapacity
+from .apis.get_disk_usage import CollectionsGetCapacity
 
 # Available components
 AVAILABLE_COLLECTIONS = {
@@ -18,5 +18,5 @@ AVAILABLE_COLLECTIONS = {
     'gse': CollectionsGSE,
     'job': CollectionsJOB,
     'sops': CollectionsSOPS,
-    'get_capacity_api': CollectionsGetCapacity,
+    'get_disk_usage': CollectionsGetCapacity,
 }
